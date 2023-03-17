@@ -9,7 +9,7 @@ const MovieCard = () => {
 
   return (
     <div className="movie-container container">
-      <Row xs={2} md={4} lg={5} className="g-4 gap-5">
+      <Row xs={2} md={4} lg={5} className="g-4 gap-5 justify-content-center">
         {movies.map((movie) => (
           <Col key={movie.id}>
             <Card className="bg-dark">
