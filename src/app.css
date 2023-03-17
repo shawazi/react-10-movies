@@ -1,0 +1,46 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#root {
+    max-width: "100%";
+}
+
+.container {
+    max-width: '100%'
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+    padding-left: 10rem;
+}
+
+a:link {
+    text-decoration: none;
+    color: white;
+}
+
+a:visited {
+    text-decoration: none;
+    color: white;
+  }
+  
+a:hover {
+    text-decoration: none;
+    color: yellow;
+    /* no idea why the hover and active colors are not changing as expected */
+}
+  
+a:active {
+    text-decoration: underline;
+    color: aqua;
+}
+
+ul {
+    gap: 1rem;
+    padding-right: 6rem;
+}
