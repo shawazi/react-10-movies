@@ -6,9 +6,9 @@ function TextLinkExample() {
     <Navbar variant="dark" bg="dark">
       <Container>
         <Navbar.Brand href="#home">Powered by TMDB</Navbar.Brand>
-        <form class="form-inline">
-        <input class="form-control mr-sm-2" type="search" placeholder="Enter Movie Title" aria-label="Search" />
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form className="form-inline">
+        <input className="form-control mr-sm-2" type="search" placeholder="Enter Movie Title" aria-label="Search" />
+        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">

@@ -44,3 +44,13 @@ ul {
     gap: 1rem;
     padding-right: 6rem;
 }
+
+.movie-container img {
+    width: 15rem;
+    height: auto;
+}
+
+.card-body {
+    height: 10rem;
+    overflow-y: scroll;
+}
