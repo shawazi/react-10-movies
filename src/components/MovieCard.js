@@ -9,14 +9,14 @@ const MovieCard = () => {
 
   return (
     <div className="movie-container container">
-      <Row xs={2} md={4} lg={5} className="g-4">
+      <Row xs={2} md={4} lg={5} className="g-4 gap-5">
         {movies.map((movie) => (
           <Col key={movie.id}>
-            <Card>
-              <Card.Img variant="top" src={imgURL + movie.poster_path} alt={movie.title} />
-              <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Card.Text>{movie.overview}</Card.Text>
+            <Card className="bg-dark">
+              <Card.Img className="img-fluid" variant="top" src={imgURL + movie.poster_path} alt={movie.title} />
+              <Card.Body className="d-flex flex-column bg-dark">
+                <Card.Title className="mx-auto text-light mb-4">{movie.title}</Card.Title>
+                <Card.Text className="text-light">{movie.overview}</Card.Text>
               </Card.Body>
             </Card>
           </Col>

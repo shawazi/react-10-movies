@@ -8,6 +8,20 @@
     max-width: "100%";
 }
 
+html {
+    min-height: 100%;
+}
+
+body {
+    /* width: 100vw;
+    height: 100vh; */
+    background: rgb(1,49,87);
+    background: linear-gradient(0deg, rgba(1,49,87,1) 0%, rgba(63,1,87,1) 0%, rgba(1,65,87,1) 1%, rgba(35,1,87,1) 92%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* margin: 0; */
+}
+
 .container {
     max-width: '100%'
 }
@@ -16,7 +30,7 @@
     display: flex;
     flex-direction: row;
     gap: .5rem;
-    padding-left: 10rem;
+    padding: 0 3rem;
 }
 
 a:link {
@@ -45,10 +59,20 @@ ul {
     padding-right: 6rem;
 }
 
-.movie-container img {
+.navbar-nav li a:hover {
+    text-decoration: none;
+    color: yellow;
+}
+
+.navbar-nav li a:active {
+    text-decoration: underline;
+    color: aqua;
+}
+
+/* .movie-container img {
     width: 15rem;
     height: auto;
-}
+} */
 
 .card-body {
     height: 10rem;

@@ -11,3 +11,5 @@ const Router = () => {
 }
 
 export default Router
+
+// not sure how to use this router file, so i just put the routes in my app.js
