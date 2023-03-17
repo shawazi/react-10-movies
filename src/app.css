@@ -77,9 +77,28 @@ ul {
 .card-body {
     height: 10rem;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.card {
+.movie-container .card {
     padding: 1rem;
     width: 18rem;
+}
+
+@media (max-width: 1200px) {
+    .movie-container .card {
+        width: 14rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .movie-container .card {
+        width: 12rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-container .card {
+        width: 10rem;
+    }
 }
