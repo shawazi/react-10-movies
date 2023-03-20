@@ -6,21 +6,25 @@ import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const emailRef = useRef() 
-  const passwordRef = useRef() 
-  const  { signup } = useAuth()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false);
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const  { login, loading, currentUser,registerError, loginError } = useAuth();
+  const [error, setError] = useState('');
   
+  console.log("currentUser", currentUser);
+  console.log("loading", loading);
+  console.log("registerError", registerError);
+  console.log("loginError", loginError);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value)
+      await login(emailRef.current.value, passwordRef.current.value);
     } catch {
       setError('Failed to log in.');
+      console.log(error)
     }
   }
   
@@ -30,7 +34,7 @@ const Login = () => {
       <Container className="d-flex flex-column align-items-center justify-content-center" style={{minHeight: "100vh"}}>
         <Card className="login-card px-5 py-3">
           <h3 className="mb-4">Shawaz's TMBD App Login</h3>
-          <Form onSubmit={handleSubmit}>
+          <Form>
           {error && <Alert variant="danger">{error}</Alert>}
               <Form.Group id="email">
                 <Form.Label>Email</Form.Label>
@@ -38,9 +42,13 @@ const Login = () => {
               </Form.Group>
               <Form.Group id="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control placeholder="Enter your password here." type="password" ref={passwordRef} required />
+                <Form.Control placeholder="Enter your password here." type="password" ref={passwordRef} required onKeyUp={(event) => {
+                  if (event.key === 'Enter') {
+                    handleSubmit(event);
+                    }
+                }}/>
               </Form.Group>
-              <Button disabled={loading} className="w-100 mt-5" type="submit"> Sign in</Button>
+              <Button disabled={loading} className="w-100 mt-5" type="submit" onClick={handleSubmit}> Sign in</Button>
               <Link to="/register"><Button disabled={loading} className="w-100 mt-2 bg-dark">Register</Button></Link>
           </Form>
         </Card>

@@ -22,7 +22,7 @@ function NavBar() {
                 <li><Link to="/Main">Main</Link></li>
             </ul>
             <Navbar.Text className="align-items-center">
-              {currentUser ? `Signed in as: ${currentUser}` : <NavLink to="/login">Log in</NavLink>}
+              {currentUser ? `Signed in as: ${currentUser.email}` : <NavLink to="/login">Log in</NavLink>}
             </Navbar.Text>
         </Navbar.Collapse>
       </Container>

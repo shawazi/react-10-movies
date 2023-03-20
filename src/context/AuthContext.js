@@ -11,7 +11,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [registerError, setRegisterError] = useState("");
+    const [loginError, setLoginError] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const signup = async (email, password) => {
         try {
@@ -22,17 +25,19 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
             setLoading(false);
         } catch (error) {
-            setError("Failed to sign up: " + error.message) 
+            setRegisterError("Failed to sign up: " + error.message) 
             setLoading(false); 
+            console.log(error)
         } 
     }
 
     const login = async (email, password) => {
         try {
-            await auth.signInWithEmailAndPassword(email, password)
+            const user = await auth.signInWithEmailAndPassword(email, password);
+            return user;
         } catch (error) {
-            setError("Failed to log in: " + error.message)
-            // console.log(error)
+            setLoginError("Failed to log in: " + error.message)
+            console.log(error)
         }
     }
 
@@ -42,9 +47,13 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user)
-            setLoading(false)
-            
+            setCurrentUser(user);
+            setLoading(false);
+            setRegisterError("");
+            setSuccess(true);
+            setTimeout(() => {
+                setSuccess(false);
+            }, 7000);
         })
         return unsubscribe
     }, []);
@@ -54,7 +63,11 @@ export const AuthProvider = ({ children }) => {
         signup,
         login,
         logout,
-        error
+        registerError,
+        loginError,
+        loading, 
+        error,
+        success
     }
 
     return (
