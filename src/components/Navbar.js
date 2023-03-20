@@ -1,10 +1,16 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, NavLink } from 'react-router-dom';
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
+
 
 function NavBar() {
-  const {currentUser} = useAuth();
+  const {logout, currentUser} = useAuth();
+
+  const handleLogout =(e) => {
+    e.preventDefault();
+    logout();
+  }
 
   return (
     <Navbar variant="dark" bg="dark">
@@ -16,14 +22,14 @@ function NavBar() {
         </form>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-            <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                {!currentUser && <li><Link to="/login">Login</Link></li>}
+            <ul className="navbar-nav mr-auto mt-2 mt-lg-0 align-items-center">
+                {/* {!currentUser && <li><Link to="/login">Login</Link></li>} */}
                 {!currentUser && <li><Link to="/register">Register</Link></li>}
-                {currentUser && <li><Link to="/logout">Logout</Link></li>}
+                {currentUser && <li><button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button></li>}
                 <li><Link to="/Main">Main</Link></li>
             </ul>
             <Navbar.Text className="align-items-center">
-              {currentUser ? `Signed in as: ${currentUser.email}` : <NavLink to="/login">Log in</NavLink>}
+              {currentUser ? `Signed in as: ${currentUser.email}` : <NavLink to="/login">Login</NavLink>}
             </Navbar.Text>
         </Navbar.Collapse>
       </Container>

@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             setRegisterError("Failed to sign up: " + error.message) 
             setLoading(false); 
-            console.log(error)
+            // console.log(error)
         } 
     }
 
@@ -37,12 +37,13 @@ export const AuthProvider = ({ children }) => {
             return user;
         } catch (error) {
             setLoginError("Failed to log in: " + error.message)
-            console.log(error)
+            // console.log(error)
         }
     }
 
     const logout = async () => {
         await auth.signOut();
+        setCurrentUser(false);
     }
 
     useEffect(() => {
