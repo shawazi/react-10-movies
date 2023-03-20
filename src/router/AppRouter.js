@@ -4,12 +4,12 @@ import Login from '../pages/Login';
 import Main from '../pages/Main';
 import MovieDetail from '../pages/MovieDetail';
 import { AuthProvider } from '../context/AuthContext';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {
   return (
     <>
-      <Router basename={process.env.PUBLIC_URL}>  
+      <Router basename="/">  
         <AuthProvider>
           <Routes>
             <>
