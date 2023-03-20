@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from '../auth/firebase'
 
-
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -51,13 +50,14 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
             setLoading(false);
             setRegisterError("");
-            setSuccess(true);
-            setTimeout(() => {
-                setSuccess(false);
-            }, 7000);
+            if (success) {
+                setTimeout(() => {
+                    setSuccess(false);
+                }, 5000);
+            }
         })
         return unsubscribe
-    }, []);
+    }, [success]);
 
     const value = {
         currentUser,
@@ -68,7 +68,8 @@ export const AuthProvider = ({ children }) => {
         loginError,
         loading, 
         error,
-        success
+        success,
+        setSuccess
     }
 
     return (

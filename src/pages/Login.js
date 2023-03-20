@@ -8,13 +8,13 @@ import { Link } from 'react-router-dom';
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const  { login, loading, currentUser,registerError, loginError } = useAuth();
+  const  { login, loading } = useAuth();
   const [error, setError] = useState('');
   
-  console.log("currentUser", currentUser);
-  console.log("loading", loading);
-  console.log("registerError", registerError);
-  console.log("loginError", loginError);
+  // console.log("currentUser", currentUser);
+  // console.log("loading", loading);
+  // console.log("registerError", registerError);
+  // console.log("loginError", loginError);
 
   async function handleSubmit(e) {
     e.preventDefault();

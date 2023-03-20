@@ -9,7 +9,7 @@ const Register = () => {
   const emailRef = useRef() 
   const passwordRef = useRef() 
   const passwordConfirmRef = useRef()
-  const  { success, signup, loading, registerError } = useAuth()
+  const  { success, setSuccess, signup, loading, registerError } = useAuth()
   const [error, setError] = useState('');
   
   async function handleSubmit(e) {
@@ -24,6 +24,7 @@ const Register = () => {
     try {
       setError('');
       await signup(emailRef.current.value, passwordRef.current.value);
+      setSuccess(true);
     } catch {
       setError("Failed to create an account: " + {registerError})
     }
@@ -40,7 +41,7 @@ const Register = () => {
             {error && <Alert variant="danger">{error}</Alert>}
             {registerError && <Alert variant="danger">{registerError}</Alert>}
             {success && <Alert variant="success">Congratulations, you've successfully created an account!</Alert>}
-            <Form>
+            <Form onSubmit={(e) => handleSubmit(e)}>
               <Form.Group id="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" ref={emailRef} required />
@@ -57,7 +58,7 @@ const Register = () => {
                     }
                 }}/>
               </Form.Group>
-              <Button disabled={loading} className="w-100 mt-4" type="button" onClick={handleSubmit}>Sign Up</Button>
+              <Button disabled={loading} className="w-100 mt-4" type="submit">Sign Up</Button>
             </Form>
           </Card.Body>
         </Card>
