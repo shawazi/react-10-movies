@@ -1,0 +1,10 @@
+.front {
+    backface-visibility: hidden;
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  
+  .back {
+    backface-visibility: hidden;
+    transform: perspective(1000px) rotateY(180deg);
+  }
+  
