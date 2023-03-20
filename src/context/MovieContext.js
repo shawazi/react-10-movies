@@ -13,6 +13,7 @@ export const MovieProvider = ({ children }) => {
     const [userVoteThreshold, setUserVoteThreshold] = useState(0);
     const [loading, setLoading] = useState(true);
 
+
     const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY
 
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}`;
@@ -22,11 +23,11 @@ export const MovieProvider = ({ children }) => {
         setMovies(result.data.results);
         setLoading(false);
         // console.log(result.data.results);
-    }, []);
+    }, [setMovies, setLoading]);
 
     useEffect(() => {
         getData(url);
-    }, [getData, url]);
+    }, []);
 
     const values = {
         userYear,
@@ -36,7 +37,10 @@ export const MovieProvider = ({ children }) => {
         // TMDBAPIKEYS,
         loading,
         getData,
-        url
+        url,
+        movies,
+        setMovies,
+        TMDB_API_KEY
     }
 
     return (

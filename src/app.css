@@ -20,11 +20,13 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     /* margin: 0; */
+    height: 100vh;
+    width: 100vw;
 }
 
-.container {
+/* .container {
     max-width: 100%;
-}
+} */
 
 .form-inline {
     display: flex;
@@ -74,9 +76,18 @@ ul {
     height: auto;
 } */
 
-.card-body {
-    height: 10rem;
-    overflow-y: scroll;
+.movie-container .card {
+    height: 25rem;
+    width: 100%;
+}
+
+.front, .back {
+    height: 100%;
+}
+
+.movie-container .card-body {
+    height: calc(100% - 100px);
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -111,3 +122,4 @@ ul {
         height: 16rem;
     }
 }
+

@@ -8,19 +8,18 @@ const Filters = () => {
   const TMDBAPIKEYS = {
     "votes": `&vote_average.gte=${userVoteThreshold || 0}`,
     "year": `&year=${userYear || ""}`,
-    "includeVideo": `&include_video=true`,
+    "includeVideo": `&include_video=true`,  
   }
 
   let newURL = url;
 
-  console.log(TMDBAPIKEYS.votes);
-
+  // console.log(TMDBAPIKEYS.votes);
+  
   const handleRatingFilter = async (e) => {
     e.preventDefault();
     // console.log(userVoteThreshold);
     newURL += `${TMDBAPIKEYS.votes}`;
-    console.log(await getData(newURL));
-
+    await getData(newURL);
   };
 
   const handleChange = (e) => {
