@@ -85,6 +85,12 @@ ul {
     width: 18rem;
 }
 
+.card-title {
+    border-radius: 30%;
+    padding: 1rem;
+
+}
+
 @media (max-width: 1200px) {
     .movie-container .card {
         width: 14rem;

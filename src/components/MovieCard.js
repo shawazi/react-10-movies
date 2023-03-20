@@ -15,7 +15,7 @@ const MovieCard = () => {
             <Card className="bg-dark">
               <Card.Img className="img-fluid" variant="top" src={imgURL + movie.poster_path} alt={movie.title} />
               <Card.Body className="d-flex flex-column bg-dark">
-                <Card.Title className="mx-auto text-light mb-4">{movie.title}</Card.Title>
+                <Card.Title className="mx-auto text-dark mb-4 px-1 bg-info">{movie.title}</Card.Title>
                 <Card.Text className="text-light">{movie.overview}</Card.Text>
               </Card.Body>
             </Card>

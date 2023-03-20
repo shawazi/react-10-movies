@@ -1,23 +1,43 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from '../auth/firebase'
 
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
-export function useAuth() {
+export const useAuth = () => {
     return useContext(AuthContext);
 }
 
-export function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState();
-    const [loading, setLoading] = useState(true)
+export const AuthProvider = ({ children }) => {
+    const [currentUser, setCurrentUser] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    async function signup(email, password) {
+    const signup = async (email, password) => {
         try {
-            return await auth.createUserWithEmailAndPassword(email, password);
-        } finally {
-            return setLoading(false);
+            setLoading(true);
+            setError("");
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user;
+            setCurrentUser(user);
+            setLoading(false);
+        } catch (error) {
+            setError("Failed to sign up: " + error.message) 
+            setLoading(false); 
+        } 
+    }
+
+    const login = async (email, password) => {
+        try {
+            await auth.signInWithEmailAndPassword(email, password)
+        } catch (error) {
+            setError("Failed to log in: " + error.message)
+            // console.log(error)
         }
+    }
+
+    const logout = async () => {
+        await auth.signOut();
     }
 
     useEffect(() => {
@@ -31,7 +51,10 @@ export function AuthProvider({ children }) {
 
     const value = {
         currentUser,
-        signup
+        signup,
+        login,
+        logout,
+        error
     }
 
     return (

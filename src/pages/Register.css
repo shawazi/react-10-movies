@@ -1,0 +1,11 @@
+#card-body {
+    height: 25rem;
+    width: auto;
+    overflow-y: hidden;
+    
+}
+
+#card-footer {
+    color: white;
+    /* no idea why this isn't working as a className. some accordion.scss thing was overriding my colors.  */
+}

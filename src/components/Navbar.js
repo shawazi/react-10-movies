@@ -1,36 +1,28 @@
 import Container from 'react-bootstrap/Container';
-import  {Dropdown}  from 'react-bootstrap';
 import Navbar from 'react-bootstrap/Navbar';
-import DropdownMenu from 'react-bootstrap/esm/DropdownMenu';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuth } from "../context/AuthContext"
 
 function NavBar() {
+  const {currentUser} = useAuth();
+
   return (
     <Navbar variant="dark" bg="dark">
       <Container>
-        <Navbar.Brand href="#home">Powered by TMDB</Navbar.Brand>
+        <Navbar.Brand target="_blank" href="https://www.themoviedb.org/?language=en-US">Powered by TMDB</Navbar.Brand>
         <form className="form-inline">
         <input className="form-control mr-sm-2" type="search" placeholder="Enter Movie Title" aria-label="Search" />
         <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-          <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-filters">
-            Filters
-          </Dropdown.Toggle>
-          <DropdownMenu>
-            <Dropdown.Item className="text-dark">Action</Dropdown.Item>
-            <Dropdown.Item className="text-dark">Action</Dropdown.Item>
-            <Dropdown.Item className="text-dark">Action</Dropdown.Item>
-          </DropdownMenu>
-        </Dropdown>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li><a href="#login">Login</a></li>
-                <li><a href="#register">Register</a></li>
-                <li><a href="#main">Main</a></li>
+                <li><Link to="/Login">Login</Link></li>
+                <li><Link to="/Register">Register</Link></li>
+                <li><Link to="/Main">Main</Link></li>
             </ul>
-            <Navbar.Text>
-                Signed in as: <a href="#login">shawazi</a>
+            <Navbar.Text className="align-items-center">
+              {currentUser ? `Signed in as: ${currentUser}` : <NavLink to="/login">Log in</NavLink>}
             </Navbar.Text>
         </Navbar.Collapse>
       </Container>
