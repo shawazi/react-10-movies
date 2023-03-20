@@ -9,7 +9,8 @@ const MovieCard = () => {
   const { movies } = useContext(MovieContext);
   const imgURL = "https://image.tmdb.org/t/p/original/";
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (e) => {
+    e.preventDefault();
     setFlipped(true);
   }
 
@@ -23,7 +24,7 @@ const MovieCard = () => {
         {movies.map((movie) => (
           <Col key={movie.id}>
             <CardFlip isFlipped={flipped} flipDirection="horizontal" onMouseEnter={handleMouseEnter}
-            style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}>
+            style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden", height: "18rem", width: "25rem" }}>
               <Card className="front bg-dark">
                 <Card.Img className="img-fluid" variant="top" src={imgURL + movie.poster_path} alt={movie.title} />
               </Card>

@@ -94,17 +94,20 @@ ul {
 @media (max-width: 1200px) {
     .movie-container .card {
         width: 14rem;
+        height: 20rem;
     }
 }
 
 @media (max-width: 992px) {
     .movie-container .card {
         width: 12rem;
+        height: 18rem;
     }
 }
 
 @media (max-width: 768px) {
     .movie-container .card {
         width: 10rem;
+        height: 16rem;
     }
 }
