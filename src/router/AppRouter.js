@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 const AppRouter = () => {
   return (
     <>
-      <Router basename="/react-10-movies">  
+      <Router basename={process.env.PUBLIC_URL}>  
         <AuthProvider>
           <Routes>
             <>

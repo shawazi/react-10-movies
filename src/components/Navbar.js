@@ -17,8 +17,9 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li><Link to="/Login">Login</Link></li>
-                <li><Link to="/Register">Register</Link></li>
+                {!currentUser && <li><Link to="/login">Login</Link></li>}
+                {!currentUser && <li><Link to="/register">Register</Link></li>}
+                {currentUser && <li><Link to="/logout">Logout</Link></li>}
                 <li><Link to="/Main">Main</Link></li>
             </ul>
             <Navbar.Text className="align-items-center">
