@@ -47,7 +47,7 @@ const Filters = () => {
   // }
 
   const yearArr = [];
-  for (let i = 1940; i <= new Date().getFullYear(); i++) {
+  for (let i = new Date().getFullYear(); i >= 1940; i--) {
     yearArr.push(i);
   }
   // console.log(yearArr);
