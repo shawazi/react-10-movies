@@ -3,42 +3,39 @@ import Form from 'react-bootstrap/Form';
 import { useMovie } from '../context/MovieContext';
 
 const Filters = () => {
-  const { userVoteThreshold, setUserVoteThreshold, userYear, getData, url } = useMovie();
+  const { userVoteThreshold, setUserVoteThreshold, userYear, getData } = useMovie();
+  let {url} = useMovie(); 
 
   const TMDBAPIKEYS = {
     "votes": `&vote_average.gte=${userVoteThreshold || 0}`,
     "year": `&year=${userYear || ""}`,
     "includeVideo": `&include_video=true`,  
   }
-
-  let newURL = url;
-
-  // console.log(TMDBAPIKEYS.votes);
   
   const handleRatingFilter = async (e) => {
     e.preventDefault();
-    // console.log(userVoteThreshold);
-    newURL += `${TMDBAPIKEYS.votes}`;
-    await getData(newURL);
+    url += `${TMDBAPIKEYS.votes}`;
+    await getData(url);
   };
 
-  const handleChange = (e) => {
+  const handleRatingChange = (e) => {
     setUserVoteThreshold(parseInt(e.target.value));
   };
 
   return (
     <Form onSubmit={handleRatingFilter}>
       <div className="mb-3 text-light">
+        <h6 className="text-end">Filter by Rating</h6>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
           <Form.Check
             key={value}
-            inline
+            inlinejustify-content-right
             label={value}
             type="radio"
             name="rating"
             id={`rating-${value}`}
             value={value}
-            onChange={handleChange}
+            onChange={handleRatingChange}
             checked={userVoteThreshold === value}
           />
         ))}

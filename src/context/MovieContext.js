@@ -12,39 +12,52 @@ export const MovieProvider = ({ children }) => {
     const [userYear, setUserYear] = useState("");
     const [userVoteThreshold, setUserVoteThreshold] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [mediaImg, setMediaImg] = useState(new Map());
 
-
-    const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY
+    const TMDB_API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
     let url = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}`;
 
     const getData = useCallback(async (url) => {
-        const result = await axios.get(url)
-        setMovies(result.data.results);
-        setLoading(false);
-        // console.log(result.data.results);
-    }, [setMovies, setLoading]);
+        try {
+          const result = await axios.get(url);
+          setLoading(false);
+          if (result?.data?.results) {
+            setMediaImg(prev => {
+              const mediaBools = {};
+              result?.data.results.forEach(movie => {
+                mediaBools[movie.id] = movie.poster_path !== null;
+              });
+              setMovies(result?.data.results);
+            //   console.log(result?.data?.results)
+              return mediaBools;
+            })
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }, [setMovies, setLoading]);      
 
     useEffect(() => {
         getData(url);
-    }, []);
+    }, [getData, url]);
 
     const values = {
         userYear,
         setUserYear,
         userVoteThreshold,
         setUserVoteThreshold,
-        // TMDBAPIKEYS,
         loading,
         getData,
         url,
         movies,
         setMovies,
-        TMDB_API_KEY
+        TMDB_API_KEY,
+        mediaImg
     }
 
     return (
-        <MovieContext.Provider value={{ movies, ...values }}>
+        <MovieContext.Provider value={{ ...values }}>
             {children}
         </MovieContext.Provider>
     );

@@ -6,7 +6,7 @@ import { useMovie } from '../context/MovieContext';
 
 function NavBar() {
   const {logout, currentUser} = useAuth();
-  const { TMDB_API_KEY, getData, movies, setMovies } = useMovie();
+  const { TMDB_API_KEY, getData } = useMovie();
   
 
   const handleLogout =(e) => {
@@ -16,15 +16,8 @@ function NavBar() {
 
   const handleNavSearch = async (e) => {
     e.preventDefault();
-    const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}`;
-    // console.log(e.target.elements[0].value);
-    let searchQuery = "&query=" + e.target.elements[0].value;
-    const newURL = searchURL + encodeURI(searchQuery);
-    // console.log(newURL);
-    await getData(newURL);
-    // console.log(searchResults?.data.results);
-    console.log(movies);
-    // setMovies(movies)
+    const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=` + e.target.elements[0].value;
+    await getData(searchURL);
   }
 
   return (
@@ -38,7 +31,6 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0 align-items-center">
-                {/* {!currentUser && <li><Link to="/login">Login</Link></li>} */}
                 {!currentUser && <li><Link to="/register">Register</Link></li>}
                 {currentUser && <li><button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button></li>}
                 <li><Link to="/Main">Main</Link></li>
