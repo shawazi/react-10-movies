@@ -4,6 +4,7 @@ import MovieCard from '../components/MovieCard'
 import NavBar from "../components/Navbar"
 import { useMovie } from '../context/MovieContext'
 import RatingFilters from '../components/RatingFilters'
+// import "../app.css";
 
 const Main = () => {
   const { loading } = useMovie();
@@ -14,7 +15,7 @@ const Main = () => {
     <>
       <NavBar />
       <Container fluid className="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
-        <h1 className="text-light mb-5">Shawaz's TMDB Movie App</h1>
+        <h1 className="handDrawn mb-5">Shawaz's TMDB Movie App</h1>
         <RatingFilters />
         {loading && <h3 className="text-light">Loading...</h3>}
         <Container className="w-100 mb-5">
