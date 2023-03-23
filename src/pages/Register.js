@@ -34,8 +34,8 @@ const Register = () => {
   return (
     <>
       <Navbar />
-      <Container className="d-flex flex-column align-items-center justify-content-center" style={{minHeight: "80vh"}}>
-        <h1 className="text-center mt-3 mb-5 text-light">Shawaz's TMDB Movie App</h1>
+      <Container className="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
+      <h1 className="handDrawn mb-5">Shawaz's TMDB Movie App</h1>
         <p className="text-light">Search through a massive movie database to find what you want! Torrent links coming soon!</p>
         <Card className="w-100" style={{maxWidth: "800px" }}>
           <Card.Body id="card-body">

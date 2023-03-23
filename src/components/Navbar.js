@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link, NavLink } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 import { useMovie } from '../context/MovieContext';
+import "../app.css";
 
 function NavBar() {
   const {logout, currentUser} = useAuth();
@@ -31,11 +32,12 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0 align-items-center">
-                {!currentUser && <li><Link to="/register">Register</Link></li>}
-                {currentUser && <li><button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button></li>}
+                
                 <li><Link to="/Main">Main</Link></li>
             </ul>
-            <Navbar.Text className="align-items-center">
+            <Navbar.Text className="d-flex gap-4 align-items-center">
+                {!currentUser && <NavLink to="/register">Register</NavLink>}
+                {currentUser && <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>}
               {currentUser ? `Signed in as: ${currentUser.email}` : <NavLink to="/login">Login</NavLink>}
             </Navbar.Text>
         </Navbar.Collapse>

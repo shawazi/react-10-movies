@@ -28,6 +28,10 @@ body {
     overflow-x: hidden;
 }
 
+.nav-link.active {
+    color: red;
+}
+
 .handDrawn {
     font-family: 'Delicious Handrawn';
     color: rgb(173, 230, 193);

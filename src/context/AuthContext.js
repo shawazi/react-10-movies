@@ -13,23 +13,10 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(false);
     const [loading, setLoading] = useState(true);
-    // const [registerError, setRegisterError] = useState("");
-    // const [loginError, setLoginError] = useState("");
-    const [error, setError] = useState("");
-    // const [success, setSuccess] = useState(false);
-
-    const displayLoginSuccess = () => {
-        toast.success(`Logged in.`);
-    };
-    
-    const displayLoginFailure = () => {
-        toast.error(`${error}`);
-    };
 
     const signup = async (email, password) => {
         try {
             setLoading(true);
-            setError("");
             const userCredential = await auth.createUserWithEmailAndPassword(email, password);
             const user = userCredential.user;
             setCurrentUser(user);
@@ -43,14 +30,14 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
+            setLoading(true);
             const user = await auth.signInWithEmailAndPassword(email, password);
             const userCredential = user.user;
             setCurrentUser(userCredential);
-            setError("");
-            displayLoginSuccess();
+            toast.success("Logged in.")
         } catch (error) {
-            setError("Failed to log in: " + error.message);
-            displayLoginFailure();
+            setLoading(false);
+            toast.error(error.message.replace("Firebase: ", ""));
         }
     }
 
@@ -64,8 +51,7 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
             setLoading(false);
-            setError("");
-            // setSuccess(false);
+
         })
         return unsubscribe
     }, []);
