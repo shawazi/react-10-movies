@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Form, Button, Card, Alert, Container } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import Navbar from '../components/Navbar';
@@ -6,27 +6,32 @@ import "./Register.css";
 import { Link } from 'react-router-dom';
 
 const Register = () => {
-  const emailRef = useRef() 
-  const passwordRef = useRef() 
-  const passwordConfirmRef = useRef()
   const  { success, setSuccess, signup, loading, registerError } = useAuth()
   const [error, setError] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [userPW, setUserPW] = useState("");
+  const [userPWConf, setUserPWConf] = useState("");
   
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("handling submission...")
-
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+    if (userPW !== userPWConf) {
       return setError("Passwords do not match.")
     }
     
     try {
+      console.log("error", error)
+      console.log("reg-error", registerError)
+      console.log("success", success)
       setError('');
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(userEmail, userPW);
       setSuccess(true);
-    } catch {
-      setError("Failed to create an account: " + {registerError})
+    } catch (error) {
+      console.log("error", error);
+      console.log("reg-error", registerError);
+      console.log("success", setSuccess);
+      // setError(registerError);
+      setSuccess(false);
     }
   }
   return (
@@ -44,19 +49,15 @@ const Register = () => {
             <Form onSubmit={(e) => handleSubmit(e)}>
               <Form.Group id="email">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" ref={emailRef} required />
+                <Form.Control type="email" value={userEmail} required onChange={(e) => setUserEmail(e.target.value)} />
               </Form.Group>
               <Form.Group id="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" ref={passwordRef} required />
+                <Form.Control type="password" value={userPW} required onChange={(e) => setUserPW(e.target.value)} />
               </Form.Group>
               <Form.Group id="password-confirm">
                 <Form.Label>Password Confirmation</Form.Label>
-                <Form.Control type="password" ref={passwordConfirmRef} required onKeyUp={(event) => {
-                  if (event.key === 'Enter') {
-                    handleSubmit(event);
-                    }
-                }}/>
+                <Form.Control type="password" value={userPWConf} required onChange={(e) => setUserPWConf(e.target.value)} />
               </Form.Group>
               <Button disabled={loading} className="w-100 mt-4" type="submit">Sign Up</Button>
             </Form>

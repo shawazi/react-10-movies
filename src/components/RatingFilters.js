@@ -16,6 +16,7 @@ const Filters = () => {
     votes: `&vote_average.gte=${userVoteThreshold || 0}`,
     year: `&year=${userYear || ""}`,
     includeVideo: `&include_video=true`,
+    sortDescPop: "&sort_by=popularity.desc",
   };
 
   const handleRatingChange = (e) => {
@@ -35,7 +36,7 @@ const Filters = () => {
 
   const handleYearFilter = async (e) => {
     e.preventDefault();
-    url += `${TMDBAPIKEYS.year}`;
+    url += `${TMDBAPIKEYS.year}${TMDBAPIKEYS.sortDescPop}`;
     console.log(url);
     await getData(url);
   };

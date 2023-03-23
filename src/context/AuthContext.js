@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { auth } from '../auth/firebase'
+import { auth } from '../auth/firebase';
+import { toast, ToastContainer } from "react-toastify";
+
+
 
 const AuthContext = createContext();
 
@@ -11,9 +14,17 @@ export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(false);
     const [loading, setLoading] = useState(true);
     const [registerError, setRegisterError] = useState("");
-    const [loginError, setLoginError] = useState("");
+    // const [loginError, setLoginError] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+
+    const displayLoginSuccess = () => {
+        toast.success(`Logged in.`);
+      };
+    
+      const displayLoginFailure = () => {
+        toast.error(`${error}`);
+      };
 
     const signup = async (email, password) => {
         try {
@@ -24,8 +35,9 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
             setLoading(false);
         } catch (error) {
-            setRegisterError("Failed to sign up: " + error.message) 
-            setLoading(false); 
+            setLoading(false);
+            setRegisterError("Failed to sign up: " + error.message);
+            toast.error(registerError);
             // console.log(error)
         } 
     }
@@ -33,10 +45,13 @@ export const AuthProvider = ({ children }) => {
     const login = async (email, password) => {
         try {
             const user = await auth.signInWithEmailAndPassword(email, password);
-            return user;
+            const userCredential = user.user;
+            setCurrentUser(userCredential);
+            setError("");
+            displayLoginSuccess();
         } catch (error) {
-            setLoginError("Failed to log in: " + error.message)
-            // console.log(error)
+            setError("Failed to log in: " + error.message);
+            displayLoginFailure();
         }
     }
 
@@ -49,23 +64,17 @@ export const AuthProvider = ({ children }) => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
             setLoading(false);
-            setRegisterError("");
-            if (success) {
-                setTimeout(() => {
-                    setSuccess(false);
-                }, 5000);
-            }
+            setError("");
+            setSuccess(false);
         })
         return unsubscribe
-    }, [success]);
+    }, []);
 
-    const value = {
+    const values = {
         currentUser,
         signup,
         login,
         logout,
-        registerError,
-        loginError,
         loading, 
         error,
         success,
@@ -73,8 +82,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={values}>
             {!loading && children}
+            <ToastContainer theme="dark" autoClose={7000} newestOnTop={true} />
         </AuthContext.Provider>
     )
 }

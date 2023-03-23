@@ -4,6 +4,8 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import "./app.css";
 // import { BrowserRouter } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
