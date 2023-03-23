@@ -13,7 +13,7 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [registerError, setRegisterError] = useState("");
+    // const [registerError, setRegisterError] = useState("");
     // const [loginError, setLoginError] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
@@ -34,11 +34,10 @@ export const AuthProvider = ({ children }) => {
             const user = userCredential.user;
             setCurrentUser(user);
             setLoading(false);
+            toast.success("You've been signed up!");
         } catch (error) {
             setLoading(false);
-            setRegisterError("Failed to sign up: " + error.message);
-            toast.error(registerError);
-            // console.log(error)
+            toast.error(error.message.replace("Firebase: ", ""));
         } 
     }
 

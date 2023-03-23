@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { Form, Button, Card, Alert, Container } from 'react-bootstrap'
+import { Form, Button, Card, Container } from 'react-bootstrap'
 import { useAuth } from '../context/AuthContext'
 import Navbar from '../components/Navbar';
 import "./Register.css";
 import { Link } from 'react-router-dom';
+import {toast} from "react-toastify";
 
 const Register = () => {
-  const  { success, setSuccess, signup, loading, registerError } = useAuth()
-  const [error, setError] = useState('');
+  const  { signup, loading } = useAuth();
+
   const [userEmail, setUserEmail] = useState("");
   const [userPW, setUserPW] = useState("");
   const [userPWConf, setUserPWConf] = useState("");
@@ -16,24 +17,19 @@ const Register = () => {
     e.preventDefault();
 
     if (userPW !== userPWConf) {
-      return setError("Passwords do not match.")
+      toast.error("Passwords do not match.")
+      return
     }
     
     try {
-      console.log("error", error)
-      console.log("reg-error", registerError)
-      console.log("success", success)
-      setError('');
       await signup(userEmail, userPW);
-      setSuccess(true);
     } catch (error) {
-      console.log("error", error);
-      console.log("reg-error", registerError);
-      console.log("success", setSuccess);
-      // setError(registerError);
-      setSuccess(false);
+      toast.error(error.message);
     }
+
+    return false;
   }
+
   return (
     <>
       <Navbar />
@@ -43,10 +39,9 @@ const Register = () => {
         <Card className="w-100" style={{maxWidth: "800px" }}>
           <Card.Body id="card-body">
             <h2 className="text-center mb-4">Sign Up</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {registerError && <Alert variant="danger">{registerError}</Alert>}
-            {success && <Alert variant="success">Congratulations, you've successfully created an account!</Alert>}
-            <Form onSubmit={(e) => handleSubmit(e)}>
+            {/* {error && <Alert variant="danger">{error}</Alert>} */}
+            {/* {success && <Alert variant="success">Congratulations, you've successfully created an account!</Alert>} */}
+            <Form onSubmit={e => handleSubmit(e)}>
               <Form.Group id="email">
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" value={userEmail} required onChange={(e) => setUserEmail(e.target.value)} />
@@ -59,7 +54,9 @@ const Register = () => {
                 <Form.Label>Password Confirmation</Form.Label>
                 <Form.Control type="password" value={userPWConf} required onChange={(e) => setUserPWConf(e.target.value)} />
               </Form.Group>
-              <Button disabled={loading} className="w-100 mt-4" type="submit">Sign Up</Button>
+              <Button disabled={loading} className="w-100 mt-4" type="submit">
+                Sign Up
+              </Button>
             </Form>
           </Card.Body>
         </Card>

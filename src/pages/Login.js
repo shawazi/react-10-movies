@@ -12,6 +12,7 @@ const Login = () => {
 
   async function handleLogin(e) {
     e.preventDefault();
+
     try {
       await login(userEmail, userPW);
 
@@ -29,7 +30,7 @@ const Login = () => {
       >
         <Card className="login-card px-5 py-3">
           <h3 className="mb-4">Shawaz's TMBD App Login</h3>
-          <Form onSubmit={handleLogin}>
+          <Form onSubmit={e => handleLogin(e)}>
             {loginError && <Alert variant="danger">{loginError}</Alert>}
             <Form.Group id="email">
               <Form.Label>Email</Form.Label>
@@ -52,7 +53,6 @@ const Login = () => {
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-5" type="submit">
-              {" "}
               Sign in
             </Button>
             <Link to="/register">
