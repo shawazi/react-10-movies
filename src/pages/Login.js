@@ -28,7 +28,6 @@ const Login = () => {
         className="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
       <h1 className="handDrawn mb-5">Shawaz's TMDB Movie App</h1>
         <Card className="login-card px-5 py-3">
-          <h3 className="mb-4">Shawaz's TMBD App Login</h3>
           <Form onSubmit={e => handleLogin(e)}>
             {loginError && <Alert variant="danger">{loginError}</Alert>}
             <Form.Group id="email">
