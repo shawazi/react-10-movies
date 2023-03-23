@@ -55,7 +55,7 @@ const Filters = () => {
 
   return (
     <div>
-      <Form className="d-flex flex-column gap-2 justify-content-start w-25" onSubmit={handleYearFilter}>
+      <Form className="d-flex flex-column gap-2 align-items-center w-25" onSubmit={handleYearFilter}>
         <Form.Control as="select" onChange={handleYearChange}>
           <option value="">Filter by Year</option>
           {yearArr.map((year) => (

@@ -1,9 +1,10 @@
 import React from 'react'
 import { Container } from "react-bootstrap"
-import MovieCard from '../components/MovieCard'
+// import MovieCard from '../components/MovieCard'
 import NavBar from "../components/Navbar"
 import { useMovie } from '../context/MovieContext'
 import RatingFilters from '../components/RatingFilters'
+import PaginatedDisplay from '../components/PaginatedDisplay'
 // import "../app.css";
 
 const Main = () => {
@@ -19,7 +20,7 @@ const Main = () => {
         <RatingFilters />
         {loading && <h3 className="text-light">Loading...</h3>}
         <Container className="w-100 mb-5">
-          {!loading && <MovieCard />}
+          {!loading && <PaginatedDisplay />}
         </Container>
       </Container>
     </>
