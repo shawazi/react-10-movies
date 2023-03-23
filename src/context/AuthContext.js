@@ -16,15 +16,15 @@ export const AuthProvider = ({ children }) => {
     // const [registerError, setRegisterError] = useState("");
     // const [loginError, setLoginError] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
 
     const displayLoginSuccess = () => {
         toast.success(`Logged in.`);
-      };
+    };
     
-      const displayLoginFailure = () => {
+    const displayLoginFailure = () => {
         toast.error(`${error}`);
-      };
+    };
 
     const signup = async (email, password) => {
         try {
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await auth.signOut();
         setCurrentUser(false);
+        toast.success("Logged out.");
     }
 
     useEffect(() => {
@@ -64,7 +65,7 @@ export const AuthProvider = ({ children }) => {
             setCurrentUser(user);
             setLoading(false);
             setError("");
-            setSuccess(false);
+            // setSuccess(false);
         })
         return unsubscribe
     }, []);
@@ -75,9 +76,8 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         loading, 
-        error,
-        success,
-        setSuccess
+        // success,
+        // setSuccess
     }
 
     return (

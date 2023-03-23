@@ -23,11 +23,12 @@ const Register = () => {
     
     try {
       await signup(userEmail, userPW);
+      // console.log(loading)
+      return
     } catch (error) {
-      toast.error(error.message);
+      console.log(error.message);
+      return
     }
-
-    return false;
   }
 
   return (
@@ -55,7 +56,7 @@ const Register = () => {
                 <Form.Control type="password" value={userPWConf} required onChange={(e) => setUserPWConf(e.target.value)} />
               </Form.Group>
               <Button disabled={loading} className="w-100 mt-4" type="submit">
-                Sign Up
+                {loading ? "Submitting..." : "Sign Up"}
               </Button>
             </Form>
           </Card.Body>
