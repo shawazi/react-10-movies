@@ -36,10 +36,10 @@ const Register = () => {
       <Navbar />
       <Container className="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
       <h1 className="handDrawn mb-5">Shawaz's TMDB Movie App</h1>
-        <p className="text-light">Search through a massive movie database to find what you want! Torrent links coming soon!</p>
+        {/* <p className="text-light">Search through a massive movie database to find what you want! Torrent links coming soon!</p> */}
         <Card className="w-100" style={{maxWidth: "800px" }}>
           <Card.Body id="card-body">
-            <h2 className="text-center mb-4">Sign Up</h2>
+            <h2 className="text-center mb-4 alkatra">Sign Up</h2>
             {/* {error && <Alert variant="danger">{error}</Alert>} */}
             {/* {success && <Alert variant="success">Congratulations, you've successfully created an account!</Alert>} */}
             <Form onSubmit={e => handleSubmit(e)}>

@@ -28,6 +28,7 @@ const Login = () => {
         className="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
       <h1 className="handDrawn mb-5">Shawaz's TMDB Movie App</h1>
         <Card className="login-card px-5 py-3">
+          <h2 className="text-center mb-4 alkatra">Log In</h2>
           <Form onSubmit={e => handleLogin(e)}>
             {loginError && <Alert variant="danger">{loginError}</Alert>}
             <Form.Group id="email">
@@ -51,7 +52,7 @@ const Login = () => {
               />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-5" type="submit">
-              Sign in
+              Log In
             </Button>
             <Link to="/register">
               <Button className="w-100 mt-2 bg-dark">
