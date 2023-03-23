@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from '../auth/firebase';
 import { toast, ToastContainer } from "react-toastify";
-
-
+// import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 const AuthContext = createContext();
 
@@ -13,6 +12,17 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    // const googleProvider = new GoogleAuthProvider();
+    // const googleSignIn = async () => {
+    //     try {
+    //         setLoading(true);
+    //         const result = await signInWithPopup();
+    //         console.log(result);
+    //     } catch (error) {
+    //         console.log(error.message);
+    //     }
+    // }
 
     const signup = async (email, password) => {
         try {
@@ -49,12 +59,14 @@ export const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
-            setCurrentUser(user);
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                setCurrentUser(user);
+            } else {
+                setCurrentUser(false);
+            }
             setLoading(false);
-
-        })
-        return unsubscribe
+        });
     }, []);
 
     const values = {
@@ -70,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider value={values}>
             {children}
-            <ToastContainer theme="dark" autoClose={7000} newestOnTop={true} />
+            <ToastContainer position="bottom-right" theme="dark" autoClose={7000} newestOnTop={true} />
         </AuthContext.Provider>
     )
 }
