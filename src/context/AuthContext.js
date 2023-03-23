@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
             const userCredential = user.user;
             setCurrentUser(userCredential);
             toast.success("Logged in.")
+            setLoading(false);
         } catch (error) {
             setLoading(false);
             toast.error(error.message.replace("Firebase: ", ""));
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={values}>
-            {!loading && children}
+            {children}
             <ToastContainer theme="dark" autoClose={7000} newestOnTop={true} />
         </AuthContext.Provider>
     )

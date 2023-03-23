@@ -55,7 +55,7 @@ const Login = () => {
               Sign in
             </Button>
             <Link to="/register">
-              <Button disabled={loading} className="w-100 mt-2 bg-dark">
+              <Button className="w-100 mt-2 bg-dark">
                 Register
               </Button>
             </Link>
